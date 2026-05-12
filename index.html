@@ -3,1317 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Star Life — Astrology, with care</title>
+<meta name="theme-color" content="#1A2438">
+<title>Star Life — Astrology, with care | Silva &amp; Kamelia</title>
 <meta name="description" content="A small astrology practice by Silva and Kamelia. Birth chart readings, consultations, tarot — guidance written in the stars, delivered with devoted attention.">
+<meta name="author" content="Silva &amp; Kamelia">
+
+<!-- Open Graph / social -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://star-life.co/">
+<meta property="og:title" content="Star Life — Astrology, with care">
+<meta property="og:description" content="A small astrology practice by Silva and Kamelia. Two voices on every reading. Guidance, written in the stars.">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Star Life — Astrology, with care">
+<meta name="twitter:description" content="A small astrology practice by Silva and Kamelia. Two voices on every reading.">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://star-life.co/">
+
+<!-- Favicon (placeholder — Dimitar's mark will replace) -->
+<link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg">
+
+<!-- Preconnect to font hosts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
-<style>
-  :root {
-    --night: #1A2438;
-    --night-deep: #0F1626;
-    --cream: #F4ECDC;
-    --cream-soft: #FAF4E6;
-    --gold: #C9A77A;
-    --gold-deep: #B08F5E;
-    --rose: #D4A29A;
-    --sky: #A8B8C8;
-    --ash: #6B7585;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Lora', Georgia, serif;
-    background: var(--cream);
-    color: var(--night);
-    font-weight: 400;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
-
-  ::selection { background: var(--gold); color: var(--cream); }
-
-  /* ─── NAVIGATION ─── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    padding: 1.4rem 3rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 100;
-    background: rgba(244, 236, 220, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(26, 36, 56, 0.06);
-    transition: all 0.4s ease;
-  }
-
-  nav.scrolled {
-    padding: 1rem 3rem;
-    background: rgba(244, 236, 220, 0.95);
-  }
-
-  .nav-logo {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-weight: 300;
-    font-size: 1.4rem;
-    letter-spacing: -0.02em;
-    color: var(--night);
-    text-decoration: none;
-    display: flex;
-    align-items: baseline;
-    gap: 0.3rem;
-  }
-
-  .nav-logo em { color: var(--gold); }
-  .nav-logo .star {
-    color: var(--gold);
-    font-size: 0.6em;
-    font-style: normal;
-    transform: translateY(-0.3em);
-    display: inline-block;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-    align-items: center;
-  }
-
-  .nav-links a {
-    font-family: 'Fraunces', serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--night);
-    text-decoration: none;
-    opacity: 0.75;
-    transition: opacity 0.3s, color 0.3s;
-  }
-
-  .nav-links a:hover { opacity: 1; color: var(--gold); }
-
-  .nav-cta {
-    padding: 0.7rem 1.5rem;
-    background: var(--night);
-    color: var(--cream) !important;
-    opacity: 1 !important;
-    transition: background 0.3s !important;
-  }
-
-  .nav-cta:hover { background: var(--gold) !important; }
-
-  .menu-toggle { display: none; background: none; border: none; cursor: pointer; }
-
-  /* ─── SHARED ─── */
-  .container { max-width: 1280px; margin: 0 auto; padding: 0 3rem; }
-
-  .eyebrow {
-    font-family: 'Fraunces', serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    opacity: 0.6;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.8rem;
-  }
-
-  .eyebrow::before {
-    content: "";
-    display: inline-block;
-    width: 24px;
-    height: 1px;
-    background: currentColor;
-    opacity: 0.5;
-  }
-
-  .section-num {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-weight: 300;
-    font-size: 0.85rem;
-    opacity: 0.5;
-    letter-spacing: 0.05em;
-  }
-
-  section { padding: 8rem 0; position: relative; }
-
-  .section-head {
-    display: flex;
-    align-items: baseline;
-    gap: 2rem;
-    margin-bottom: 4rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid rgba(26, 36, 56, 0.15);
-  }
-
-  .section-head-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 300;
-    font-size: clamp(1.8rem, 3vw, 2.4rem);
-    letter-spacing: -0.01em;
-    line-height: 1.1;
-  }
-
-  .section-head-title em { font-style: italic; color: var(--gold); }
-
-  .btn {
-    display: inline-block;
-    padding: 1rem 2.4rem;
-    font-family: 'Fraunces', serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: var(--cream);
-    background: var(--night);
-    border: 1px solid var(--night);
-    transition: all 0.4s ease;
-    cursor: pointer;
-  }
-
-  .btn:hover {
-    background: var(--gold);
-    border-color: var(--gold);
-  }
-
-  .btn.outline {
-    background: transparent;
-    color: var(--night);
-    border-color: var(--night);
-  }
-
-  .btn.outline:hover {
-    background: var(--night);
-    color: var(--cream);
-  }
-
-  .btn.gold {
-    background: var(--gold);
-    border-color: var(--gold);
-  }
-
-  .btn.gold:hover {
-    background: var(--night);
-    border-color: var(--night);
-  }
-
-  /* ─── HERO ─── */
-  .hero {
-    min-height: 100vh;
-    padding: 8rem 3rem 6rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-    background:
-      radial-gradient(ellipse at 75% 25%, rgba(201, 167, 122, 0.12), transparent 55%),
-      radial-gradient(ellipse at 15% 85%, rgba(168, 184, 200, 0.10), transparent 55%),
-      var(--cream);
-    overflow: hidden;
-  }
-
-  /* Star field */
-  .star-field {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .star-field .star {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: var(--gold);
-    border-radius: 50%;
-    opacity: 0;
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 1280px;
-    margin: 0 auto;
-    width: 100%;
-  }
-
-  .hero-eyebrow {
-    margin-bottom: 3rem;
-    opacity: 0;
-  }
-
-  .hero-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 300;
-    font-size: clamp(3rem, 7.5vw, 7rem);
-    line-height: 0.98;
-    letter-spacing: -0.025em;
-    font-variation-settings: "opsz" 144;
-    margin-bottom: 3rem;
-    max-width: 1100px;
-  }
-
-  .hero-title em { font-style: italic; color: var(--gold); }
-
-  .hero-title .line {
-    display: block;
-    overflow: hidden;
-  }
-
-  .hero-title .line-inner {
-    display: block;
-    transform: translateY(110%);
-  }
-
-  .hero-sub {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-weight: 300;
-    font-size: clamp(1.2rem, 1.8vw, 1.5rem);
-    line-height: 1.5;
-    max-width: 620px;
-    opacity: 0;
-    margin-bottom: 3rem;
-  }
-
-  .hero-cta {
-    display: flex;
-    gap: 1.2rem;
-    flex-wrap: wrap;
-    opacity: 0;
-  }
-
-  .hero-meta {
-    position: absolute;
-    bottom: 3rem;
-    left: 3rem;
-    right: 3rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    z-index: 2;
-    opacity: 0;
-  }
-
-  .hero-meta-item {
-    font-family: 'Fraunces', serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    opacity: 0.55;
-  }
-
-  .hero-meta-item .italic {
-    display: block;
-    font-style: italic;
-    text-transform: none;
-    letter-spacing: 0.02em;
-    font-size: 0.95rem;
-    opacity: 1;
-    margin-top: 0.4rem;
-  }
-
-  .hero-scroll {
-    position: absolute;
-    bottom: 3rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.8rem;
-    opacity: 0.4;
-  }
-
-  .hero-scroll-line {
-    width: 1px;
-    height: 50px;
-    background: var(--night);
-    animation: scrollLine 2s ease-in-out infinite;
-  }
-
-  @keyframes scrollLine {
-    0%, 100% { opacity: 0.3; transform: scaleY(1); }
-    50% { opacity: 1; transform: scaleY(1.2); }
-  }
-
-  .hero-scroll-text {
-    font-family: 'Fraunces', serif;
-    font-size: 0.65rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-  }
-
-  /* ─── WHY ASTROLOGY ─── */
-  .why { background: var(--cream); }
-
-  .why-lead {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-weight: 300;
-    font-size: clamp(1.8rem, 3.8vw, 3rem);
-    line-height: 1.2;
-    letter-spacing: -0.015em;
-    max-width: 1000px;
-    margin-bottom: 4rem;
-    font-variation-settings: "opsz" 144;
-  }
-
-  .why-lead em { color: var(--gold); }
-
-  .why-lead .quote-mark {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 1.4em;
-    line-height: 0;
-    color: var(--gold);
-    opacity: 0.7;
-    vertical-align: -0.25em;
-    margin-right: 0.1em;
-  }
-
-  .why-grid {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 4rem;
-    max-width: 1100px;
-  }
-
-  .why-label {
-    font-family: 'Fraunces', serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    opacity: 0.55;
-    padding-top: 0.5rem;
-  }
-
-  .why-text {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    max-width: 680px;
-  }
-
-  .why-text + .why-text { margin-top: 1.4rem; }
-
-  .why-text em { font-family: 'Fraunces', serif; font-style: italic; color: var(--gold); }
-
-  /* ─── APPROACH (dark) ─── */
-  .approach {
-    background: var(--night);
-    color: var(--cream);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .approach::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 70% 30%, rgba(201, 167, 122, 0.14), transparent 55%),
-      radial-gradient(ellipse at 15% 85%, rgba(244, 236, 220, 0.06), transparent 50%);
-    pointer-events: none;
-  }
-
-  /* Parallax stars */
-  .approach-stars {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .approach-stars .pstar {
-    position: absolute;
-    width: 1.5px;
-    height: 1.5px;
-    background: var(--gold);
-    border-radius: 50%;
-    opacity: 0.5;
-  }
-
-  .approach .container { position: relative; z-index: 1; }
-
-  .approach .section-head { border-bottom-color: rgba(244, 236, 220, 0.2); }
-
-  .approach-lead {
-    font-family: 'Fraunces', serif;
-    font-weight: 300;
-    font-size: clamp(2rem, 4.2vw, 3.2rem);
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    max-width: 1000px;
-    margin-bottom: 5rem;
-  }
-
-  .approach-lead em { font-style: italic; color: var(--gold); }
-
-  .approach-steps {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    border-top: 1px solid rgba(244, 236, 220, 0.18);
-  }
-
-  .approach-step {
-    padding: 3rem 2rem 3rem 0;
-    border-right: 1px solid rgba(244, 236, 220, 0.18);
-    border-bottom: 1px solid rgba(244, 236, 220, 0.18);
-  }
-
-  .approach-step:last-child { border-right: none; }
-
-  .approach-step:not(:first-child) { padding-left: 2rem; }
-
-  .approach-step-num {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-weight: 300;
-    font-size: 0.85rem;
-    color: var(--gold);
-    margin-bottom: 1.5rem;
-    display: block;
-  }
-
-  .approach-step-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 400;
-    font-size: 1.4rem;
-    line-height: 1.2;
-    margin-bottom: 1rem;
-  }
-
-  .approach-step-title em { font-style: italic; color: var(--gold); }
-
-  .approach-step-text {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    opacity: 0.85;
-  }
-
-  .approach-tools {
-    margin-top: 4rem;
-    padding-top: 3rem;
-    border-top: 1px solid rgba(244, 236, 220, 0.15);
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 4rem;
-    max-width: 1100px;
-  }
-
-  .approach-tools-label {
-    font-family: 'Fraunces', serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    opacity: 0.55;
-    padding-top: 0.5rem;
-  }
-
-  .approach-tools-text {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    max-width: 680px;
-    opacity: 0.92;
-  }
-
-  .approach-tools-text em { font-family: 'Fraunces', serif; font-style: italic; color: var(--gold); }
-
-  /* ─── STATS ─── */
-  .stats {
-    background: var(--cream-soft);
-    padding: 6rem 0;
-  }
-
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    border-top: 1px solid rgba(26, 36, 56, 0.12);
-    border-bottom: 1px solid rgba(26, 36, 56, 0.12);
-  }
-
-  .stat {
-    padding: 4rem 2rem;
-    text-align: center;
-    border-right: 1px solid rgba(26, 36, 56, 0.12);
-  }
-
-  .stat:last-child { border-right: none; }
-
-  .stat-number {
-    font-family: 'Fraunces', serif;
-    font-weight: 300;
-    font-size: clamp(3rem, 6vw, 5rem);
-    line-height: 1;
-    color: var(--night);
-    margin-bottom: 0.5rem;
-    font-variation-settings: "opsz" 144;
-  }
-
-  .stat-number em { font-style: italic; color: var(--gold); }
-
-  .stat-label {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 1rem;
-    opacity: 0.7;
-    line-height: 1.4;
-  }
-
-  /* ─── SERVICES ─── */
-  .services { background: var(--cream); }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
-
-  .service {
-    padding: 2.8rem;
-    background: var(--cream-soft);
-    border: 1px solid rgba(26, 36, 56, 0.1);
-    display: flex;
-    flex-direction: column;
-    transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .service::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: var(--gold);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.6s ease;
-  }
-
-  .service:hover {
-    background: var(--cream);
-    border-color: var(--gold);
-    transform: translateY(-4px);
-  }
-
-  .service:hover::before { transform: scaleX(1); }
-
-  .service-num {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 0.85rem;
-    color: var(--gold);
-    margin-bottom: 1.2rem;
-    display: block;
-  }
-
-  .service-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 300;
-    font-size: 1.8rem;
-    line-height: 1.15;
-    margin-bottom: 0.6rem;
-    letter-spacing: -0.01em;
-  }
-
-  .service-title em { font-style: italic; color: var(--gold); }
-
-  .service-duration {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 0.9rem;
-    opacity: 0.65;
-    margin-bottom: 1.5rem;
-  }
-
-  .service-desc {
-    font-size: 1rem;
-    line-height: 1.75;
-    opacity: 0.88;
-    margin-bottom: 2rem;
-    flex: 1;
-  }
-
-  .service-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(26, 36, 56, 0.1);
-  }
-
-  .service-price {
-    font-family: 'Fraunces', serif;
-    font-size: 1.3rem;
-    color: var(--night);
-  }
-
-  .service-price em { font-style: italic; color: var(--gold); }
-
-  .service-price .small {
-    font-size: 0.9rem;
-    opacity: 0.65;
-    font-style: italic;
-  }
-
-  .service-link {
-    font-family: 'Fraunces', serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--night);
-    text-decoration: none;
-    opacity: 0.7;
-    transition: all 0.3s;
-  }
-
-  .service-link:hover { opacity: 1; color: var(--gold); }
-
-  .service-link::after {
-    content: " →";
-    transition: transform 0.3s;
-    display: inline-block;
-  }
-
-  .service-link:hover::after { transform: translateX(3px); }
-
-  .service.featured {
-    grid-column: 1 / -1;
-    background: var(--night);
-    color: var(--cream);
-    border-color: var(--night);
-  }
-
-  .service.featured:hover {
-    background: var(--night-deep);
-    border-color: var(--gold);
-  }
-
-  .service.featured .service-title em { color: var(--gold); }
-  .service.featured .service-footer { border-top-color: rgba(244, 236, 220, 0.2); }
-  .service.featured .service-price { color: var(--cream); }
-  .service.featured .service-link { color: var(--cream); }
-
-  .service-virtual {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background: var(--cream-soft);
-    border-left: 2px solid var(--gold);
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    opacity: 0.85;
-    max-width: 720px;
-  }
-
-  /* ─── PROCESSES (Astrology vs Tarot) ─── */
-  .processes { background: var(--cream-soft); }
-
-  .processes-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    border: 1px solid rgba(26, 36, 56, 0.15);
-  }
-
-  .process {
-    padding: 3.5rem 3rem;
-    position: relative;
-  }
-
-  .process:first-child { border-right: 1px solid rgba(26, 36, 56, 0.15); }
-
-  .process-tag {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 0.85rem;
-    color: var(--gold);
-    margin-bottom: 0.5rem;
-  }
-
-  .process-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 300;
-    font-size: 2rem;
-    line-height: 1.1;
-    margin-bottom: 2rem;
-    letter-spacing: -0.01em;
-  }
-
-  .process-title em { font-style: italic; color: var(--gold); }
-
-  .process-flow {
-    list-style: none;
-    margin-top: 2rem;
-  }
-
-  .process-flow li {
-    padding: 1.2rem 0 1.2rem 2.5rem;
-    border-bottom: 1px dotted rgba(26, 36, 56, 0.2);
-    position: relative;
-    font-size: 0.98rem;
-    line-height: 1.6;
-  }
-
-  .process-flow li:last-child { border-bottom: none; }
-
-  .process-flow li::before {
-    content: counter(step);
-    counter-increment: step;
-    position: absolute;
-    left: 0;
-    top: 1.2rem;
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 0.95rem;
-    color: var(--gold);
-    width: 1.8rem;
-  }
-
-  .process-flow { counter-reset: step; }
-
-  .process-flow li strong {
-    font-family: 'Fraunces', serif;
-    font-weight: 400;
-    font-style: italic;
-    color: var(--night);
-    display: block;
-    margin-bottom: 0.2rem;
-  }
-
-  /* ─── ETHICS ─── */
-  .ethics {
-    background: var(--cream);
-    text-align: center;
-  }
-
-  .ethics-mark {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 2.5rem;
-    color: var(--gold);
-    opacity: 0.6;
-    margin-bottom: 1.5rem;
-    line-height: 1;
-  }
-
-  .ethics-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 300;
-    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-    line-height: 1.2;
-    letter-spacing: -0.015em;
-    margin-bottom: 2rem;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .ethics-title em { font-style: italic; color: var(--gold); }
-
-  .ethics-text {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-weight: 300;
-    font-size: 1.3rem;
-    line-height: 1.6;
-    max-width: 760px;
-    margin: 0 auto 3rem;
-    opacity: 0.85;
-  }
-
-  .ethics-disclaimer {
-    max-width: 720px;
-    margin: 3rem auto 0;
-    padding: 2rem;
-    background: var(--cream-soft);
-    border: 1px solid rgba(26, 36, 56, 0.1);
-    text-align: left;
-    font-size: 0.95rem;
-    line-height: 1.7;
-    opacity: 0.85;
-  }
-
-  .ethics-disclaimer-label {
-    font-family: 'Fraunces', serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    opacity: 0.55;
-    margin-bottom: 0.8rem;
-    display: block;
-  }
-
-  .ethics-signatures {
-    margin-top: 3rem;
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 1rem;
-    opacity: 0.7;
-  }
-
-  .ethics-signatures span { color: var(--gold); margin: 0 0.4rem; }
-
-  /* ─── TESTIMONIALS ─── */
-  .testimonials { background: var(--cream-soft); }
-
-  .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
-
-  .testimonial {
-    padding: 2.8rem;
-    background: var(--cream);
-    border: 1px solid rgba(26, 36, 56, 0.1);
-    display: flex;
-    flex-direction: column;
-  }
-
-  .testimonial-mark {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 2.5rem;
-    color: var(--gold);
-    line-height: 0.5;
-    margin-bottom: 1rem;
-    opacity: 0.6;
-  }
-
-  .testimonial-text {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-weight: 300;
-    font-size: 1.15rem;
-    line-height: 1.5;
-    color: var(--night);
-    margin-bottom: 2rem;
-    flex: 1;
-  }
-
-  .testimonial-attr {
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(26, 36, 56, 0.1);
-    font-family: 'Fraunces', serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    opacity: 0.6;
-  }
-
-  .testimonial-attr .name {
-    font-style: italic;
-    text-transform: none;
-    letter-spacing: 0.02em;
-    font-size: 0.95rem;
-    opacity: 1;
-    margin-bottom: 0.3rem;
-    color: var(--night);
-  }
-
-  /* ─── ABOUT ─── */
-  .about { background: var(--cream); }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: start;
-  }
-
-  .about-bio {
-    padding: 0;
-  }
-
-  .about-bio-name {
-    font-family: 'Fraunces', serif;
-    font-weight: 300;
-    font-size: clamp(2.2rem, 4vw, 3rem);
-    line-height: 1;
-    margin-bottom: 0.8rem;
-    letter-spacing: -0.02em;
-  }
-
-  .about-bio-name em { font-style: italic; color: var(--gold); }
-
-  .about-bio-role {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 1rem;
-    color: var(--ash);
-    margin-bottom: 2rem;
-    letter-spacing: 0.05em;
-  }
-
-  .about-bio-text {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    opacity: 0.88;
-    max-width: 480px;
-  }
-
-  .about-bio-text + .about-bio-text { margin-top: 1.2rem; }
-
-  .about-divider {
-    text-align: center;
-    margin: 5rem 0 4rem;
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    color: var(--gold);
-    font-size: 1.5rem;
-    opacity: 0.5;
-  }
-
-  .about-together {
-    margin-top: 4rem;
-    padding: 3rem;
-    background: var(--cream-soft);
-    border-left: 3px solid var(--gold);
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .about-together-text {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-weight: 300;
-    font-size: clamp(1.3rem, 2.2vw, 1.6rem);
-    line-height: 1.5;
-    color: var(--night);
-  }
-
-  .about-together-text em { color: var(--gold); }
-
-  /* ─── BILLIONAIRES (J.P. Morgan section) ─── */
-  .billionaires {
-    background: var(--night);
-    color: var(--cream);
-    text-align: center;
-    padding: 10rem 3rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .billionaires::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 50% 50%, rgba(201, 167, 122, 0.15), transparent 60%);
-    pointer-events: none;
-  }
-
-  .billionaires .container { position: relative; z-index: 1; }
-
-  .billionaires-eyebrow {
-    margin-bottom: 2rem;
-    color: var(--gold);
-    opacity: 0.8;
-  }
-
-  .billionaires-quote {
-    font-family: 'Fraunces', serif;
-    font-weight: 300;
-    font-style: italic;
-    font-size: clamp(2.2rem, 5vw, 4.2rem);
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    max-width: 1000px;
-    margin: 0 auto 2rem;
-    font-variation-settings: "opsz" 144;
-  }
-
-  .billionaires-quote .gold { color: var(--gold); font-style: italic; }
-
-  .billionaires-attr {
-    font-family: 'Fraunces', serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    opacity: 0.6;
-    margin-top: 2rem;
-  }
-
-  /* ─── BOOKING ─── */
-  .booking { background: var(--cream); }
-
-  .booking-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: start;
-  }
-
-  .booking-intro h2 {
-    font-family: 'Fraunces', serif;
-    font-weight: 300;
-    font-size: clamp(2.2rem, 4vw, 3.2rem);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin-bottom: 1.5rem;
-  }
-
-  .booking-intro h2 em { font-style: italic; color: var(--gold); }
-
-  .booking-intro p {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 1.2rem;
-    line-height: 1.5;
-    margin-bottom: 2rem;
-    max-width: 480px;
-    opacity: 0.85;
-  }
-
-  .booking-meta {
-    font-family: 'Lora', serif;
-    font-size: 0.95rem;
-    line-height: 1.7;
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(26, 36, 56, 0.15);
-    max-width: 480px;
-  }
-
-  .booking-meta strong {
-    font-family: 'Fraunces', serif;
-    font-weight: 400;
-    font-style: italic;
-    color: var(--gold);
-    display: block;
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-  }
-
-  .booking-form {
-    background: var(--cream-soft);
-    padding: 2.8rem;
-    border: 1px solid rgba(26, 36, 56, 0.1);
-  }
-
-  .form-row { margin-bottom: 1.4rem; }
-
-  .form-row label {
-    display: block;
-    font-family: 'Fraunces', serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    opacity: 0.65;
-    margin-bottom: 0.5rem;
-  }
-
-  .form-row input,
-  .form-row select,
-  .form-row textarea {
-    width: 100%;
-    padding: 0.9rem 1rem;
-    background: var(--cream);
-    border: 1px solid rgba(26, 36, 56, 0.15);
-    font-family: 'Lora', serif;
-    font-size: 1rem;
-    color: var(--night);
-    transition: border-color 0.3s;
-  }
-
-  .form-row input:focus,
-  .form-row select:focus,
-  .form-row textarea:focus {
-    outline: none;
-    border-color: var(--gold);
-  }
-
-  .form-row textarea { min-height: 100px; resize: vertical; }
-
-  .form-row.two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  .form-row.two-col label { grid-column: 1 / -1; }
-
-  .booking-note {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 0.85rem;
-    opacity: 0.65;
-    margin-top: 1rem;
-    line-height: 1.5;
-  }
-
-  /* ─── FOOTER ─── */
-  footer {
-    background: var(--night-deep);
-    color: var(--cream);
-    padding: 5rem 3rem 2.5rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  footer::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 50% 0%, rgba(201, 167, 122, 0.10), transparent 60%);
-    pointer-events: none;
-  }
-
-  .footer-content {
-    max-width: 1280px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-  }
-
-  .footer-top {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 3rem;
-    padding-bottom: 3rem;
-    border-bottom: 1px solid rgba(244, 236, 220, 0.15);
-  }
-
-  .footer-brand-name {
-    font-family: 'Fraunces', serif;
-    font-weight: 300;
-    font-size: 2.5rem;
-    line-height: 1;
-    margin-bottom: 1rem;
-    letter-spacing: -0.02em;
-  }
-
-  .footer-brand-name em { font-style: italic; color: var(--gold); }
-  .footer-brand-name .star {
-    color: var(--gold);
-    font-size: 0.5em;
-    transform: translateY(-0.3em);
-    display: inline-block;
-    margin: 0 0.2rem;
-  }
-
-  .footer-brand-tag {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 1rem;
-    opacity: 0.7;
-    max-width: 320px;
-  }
-
-  .footer-col h4 {
-    font-family: 'Fraunces', serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    opacity: 0.55;
-    margin-bottom: 1.2rem;
-    font-weight: 400;
-  }
-
-  .footer-col ul { list-style: none; }
-
-  .footer-col li {
-    padding: 0.4rem 0;
-    font-size: 0.95rem;
-    opacity: 0.85;
-  }
-
-  .footer-col a {
-    color: var(--cream);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-
-  .footer-col a:hover { color: var(--gold); }
-
-  .footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 2.5rem;
-    font-family: 'Fraunces', serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    opacity: 0.5;
-  }
-
-  .footer-bottom em {
-    font-style: italic;
-    text-transform: none;
-    letter-spacing: 0.02em;
-    font-size: 0.95rem;
-    opacity: 1;
-  }
-
-  /* ─── RESPONSIVE ─── */
-  @media (max-width: 900px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
-    .menu-toggle { display: block; }
-    .container { padding: 0 1.5rem; }
-    .hero { padding: 7rem 1.5rem 5rem; }
-    .hero-meta { left: 1.5rem; right: 1.5rem; bottom: 1.5rem; flex-direction: column; align-items: flex-start; gap: 1rem; }
-    .hero-scroll { display: none; }
-    section { padding: 5rem 0; }
-    .section-head { flex-direction: column; align-items: flex-start; gap: 0.8rem; padding-bottom: 1rem; }
-    .why-grid, .approach-tools, .booking-grid, .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .approach-steps { grid-template-columns: 1fr; }
-    .approach-step { border-right: none; padding-left: 0 !important; padding-right: 0; }
-    .approach-step:not(:first-child) { padding-left: 0; }
-    .stats-grid { grid-template-columns: 1fr; }
-    .stat { border-right: none; border-bottom: 1px solid rgba(26, 36, 56, 0.12); padding: 3rem 1rem; }
-    .stat:last-child { border-bottom: none; }
-    .services-grid, .testimonials-grid { grid-template-columns: 1fr; }
-    .processes-grid { grid-template-columns: 1fr; }
-    .process:first-child { border-right: none; border-bottom: 1px solid rgba(26, 36, 56, 0.15); }
-    .footer-top { grid-template-columns: 1fr; gap: 2rem; }
-    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
-    .form-row.two-col { grid-template-columns: 1fr; }
-    .billionaires { padding: 6rem 1.5rem; }
-  }
-
-  /* GSAP animation initial states */
-  .gsap-fade-up { opacity: 0; transform: translateY(40px); }
-  .gsap-fade { opacity: 0; }
-</style>
+<!-- Stylesheet -->
+<link rel="stylesheet" href="/assets/css/style.css">
+
+<!-- Structured data for Local Business -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Star Life",
+  "description": "A small astrology practice by Silva and Kamelia. Birth chart readings, consultations, and tarot, delivered with devoted attention.",
+  "url": "https://star-life.co",
+  "founder": [
+    { "@type": "Person", "name": "Silva" },
+    { "@type": "Person", "name": "Kamelia" }
+  ],
+  "priceRange": "$100 - $500",
+  "areaServed": "Worldwide",
+  "availableLanguage": ["English", "Bulgarian"]
+}
+</script>
 </head>
 <body>
 
+<!-- Skip to content (WCAG) -->
+<a href="#main" class="skip-link">Skip to main content</a>
+
 <!-- ─── NAV ─── -->
-<nav id="nav">
-  <a href="#top" class="nav-logo"><em>Star</em><span class="star">✦</span>Life</a>
-  <ul class="nav-links">
-    <li><a href="#why">Why Astrology</a></li>
-    <li><a href="#approach">Our Approach</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#about">About Us</a></li>
-    <li><a href="#booking" class="nav-cta">Book a Reading</a></li>
-  </ul>
-</nav>
+<header>
+  <nav id="nav" aria-label="Primary">
+    <a href="#top" class="nav-logo" aria-label="Star Life — home">
+      <em>Star</em><span class="star" aria-hidden="true">✦</span>Life
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#why">Why Astrology</a></li>
+      <li><a href="#approach">Our Approach</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#booking" class="nav-cta">Book an Intro Call</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
 
 <!-- ─── HERO ─── -->
-<section class="hero" id="top">
-  <div class="star-field" id="starField"></div>
+<section class="hero" id="top" aria-label="Introduction">
+  <div class="star-field" id="starField" aria-hidden="true"></div>
 
   <div class="hero-content">
-    <div class="hero-eyebrow eyebrow">Astrology · with care</div>
+    <p class="hero-eyebrow eyebrow">Astrology · with care</p>
     <h1 class="hero-title">
       <span class="line"><span class="line-inner">It is only with</span></span>
       <span class="line"><span class="line-inner">the heart that one</span></span>
@@ -1321,7 +92,7 @@
     </h1>
     <p class="hero-sub">A small astrology practice by Silva and Kamelia. Every chart is read together, across a careful week, by two voices who refuse to let the stars go unheard.</p>
     <div class="hero-cta">
-      <a href="#booking" class="btn">Book a Reading</a>
+      <a href="#booking" class="btn">Book a Free Intro Call</a>
       <a href="#approach" class="btn outline">Our Approach</a>
     </div>
   </div>
@@ -1331,32 +102,32 @@
       Established<br>
       <span class="italic">Anno MMXX</span>
     </div>
-    <div class="hero-meta-item" style="text-align: right;">
+    <div class="hero-meta-item hero-meta-right">
       Sessions held over Zoom<br>
       <span class="italic">recorded for your return</span>
     </div>
   </div>
 
-  <div class="hero-scroll">
+  <div class="hero-scroll" aria-hidden="true">
     <span class="hero-scroll-text">Scroll</span>
     <div class="hero-scroll-line"></div>
   </div>
 </section>
 
 <!-- ─── WHY ASTROLOGY ─── -->
-<section class="why" id="why">
+<section class="why" id="why" aria-labelledby="why-heading">
   <div class="container">
     <div class="section-head gsap-fade-up">
-      <div class="section-num">I.</div>
-      <h2 class="section-head-title">Why <em>astrology</em></h2>
+      <span class="section-num" aria-hidden="true">I.</span>
+      <h2 class="section-head-title" id="why-heading">Why <em>astrology</em></h2>
     </div>
 
     <p class="why-lead gsap-fade-up">
-      <span class="quote-mark">"</span>To know yourself is the beginning of <em>all wisdom</em> — and the chart you were born under is one of the oldest mirrors we have.
+      <span class="quote-mark" aria-hidden="true">&ldquo;</span>To know yourself is the beginning of <em>all wisdom</em> — and the chart you were born under is one of the oldest mirrors we have.
     </p>
 
     <div class="why-grid gsap-fade-up">
-      <div class="why-label">In essence</div>
+      <p class="why-label">In essence</p>
       <div>
         <p class="why-text">
           Astrology is not prophecy. It is not a list of things that <em>will</em> happen. It is a <em>language</em> — old, careful, and patient — for understanding the patterns you were born into and the rhythms you live within. Your chart is a portrait of a single moment in the sky, and that moment belongs to no one but you.
@@ -1370,43 +141,43 @@
 </section>
 
 <!-- ─── APPROACH ─── -->
-<section class="approach" id="approach">
-  <div class="approach-stars" id="approachStars"></div>
+<section class="approach" id="approach" aria-labelledby="approach-heading">
+  <div class="approach-stars" id="approachStars" aria-hidden="true"></div>
   <div class="container">
     <div class="section-head gsap-fade-up">
-      <div class="section-num" style="color: var(--cream);">II.</div>
-      <h2 class="section-head-title" style="color: var(--cream);">Our <em>approach</em></h2>
+      <span class="section-num section-num-light" aria-hidden="true">II.</span>
+      <h2 class="section-head-title section-head-light" id="approach-heading">Our <em>approach</em></h2>
     </div>
 
     <p class="approach-lead gsap-fade-up">
       Every reading is the work of <em>two astrologers</em>, drawn out across a week, never rushed, never delivered alone.
     </p>
 
-    <div class="approach-steps">
-      <div class="approach-step gsap-fade-up">
+    <ol class="approach-steps">
+      <li class="approach-step gsap-fade-up">
         <span class="approach-step-num">No. 01</span>
         <h3 class="approach-step-title"><em>You</em> reach out</h3>
         <p class="approach-step-text">A short conversation about what brings you here — what you are hoping to understand, decide, or carry differently.</p>
-      </div>
-      <div class="approach-step gsap-fade-up">
+      </li>
+      <li class="approach-step gsap-fade-up">
         <span class="approach-step-num">No. 02</span>
         <h3 class="approach-step-title">We <em>study</em> the chart</h3>
         <p class="approach-step-text">Across roughly a week, both of us read your chart in two professional softwares, using several traditional methods, and we consult each other on what we find.</p>
-      </div>
-      <div class="approach-step gsap-fade-up">
+      </li>
+      <li class="approach-step gsap-fade-up">
         <span class="approach-step-num">No. 03</span>
         <h3 class="approach-step-title">We <em>meet</em>, together</h3>
         <p class="approach-step-text">Three one-hour sessions over Zoom — both Silva and Kamelia present. We listen, you ask, we explore. The recording is yours to keep.</p>
-      </div>
-      <div class="approach-step gsap-fade-up">
+      </li>
+      <li class="approach-step gsap-fade-up">
         <span class="approach-step-num">No. 04</span>
         <h3 class="approach-step-title">You <em>carry</em> it forward</h3>
         <p class="approach-step-text">A reading is not the end of a conversation. We remain available — in moments of decision, doubt, or simple wondering.</p>
-      </div>
-    </div>
+      </li>
+    </ol>
 
     <div class="approach-tools gsap-fade-up">
-      <div class="approach-tools-label">The methods</div>
+      <p class="approach-tools-label">The methods</p>
       <p class="approach-tools-text">
         We work with <em>Time Nomad</em> and <em>Zet</em> — two of the most respected astrology platforms in serious practice — and combine their analyses with traditional methods we have refined over more than fifteen years between us. Every reading is cross-checked between Silva and Kamelia before it reaches you. The slowness is the point.
       </p>
@@ -1415,111 +186,111 @@
 </section>
 
 <!-- ─── STATS ─── -->
-<section class="stats">
+<section class="stats" aria-label="Practice at a glance">
   <div class="container">
     <div class="stats-grid">
       <div class="stat gsap-fade-up">
-        <div class="stat-number" data-count="6">0</div>
-        <div class="stat-label">years of practice<br>between us</div>
+        <p class="stat-number"><span data-count="6">0</span></p>
+        <p class="stat-label">years of practice<br>between us</p>
       </div>
       <div class="stat gsap-fade-up">
-        <div class="stat-number"><em data-count="30">0</em>+</div>
-        <div class="stat-label">clients carried<br>through real questions</div>
+        <p class="stat-number"><em><span data-count="30">0</span></em>+</p>
+        <p class="stat-label">clients carried<br>through real questions</p>
       </div>
       <div class="stat gsap-fade-up">
-        <div class="stat-number" data-count="2">0</div>
-        <div class="stat-label">voices on every<br>reading you receive</div>
+        <p class="stat-number"><span data-count="2">0</span></p>
+        <p class="stat-label">voices on every<br>reading you receive</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ─── SERVICES ─── -->
-<section class="services" id="services">
+<section class="services" id="services" aria-labelledby="services-heading">
   <div class="container">
     <div class="section-head gsap-fade-up">
-      <div class="section-num">III.</div>
-      <h2 class="section-head-title">Our <em>services</em></h2>
+      <span class="section-num" aria-hidden="true">III.</span>
+      <h2 class="section-head-title" id="services-heading">Our <em>services</em></h2>
     </div>
 
-    <p class="why-lead gsap-fade-up" style="font-size: clamp(1.4rem, 2.6vw, 2rem); margin-bottom: 4rem;">
-      <span class="quote-mark">"</span>Five ways to <em>begin</em> — each held to the same standard of attention.
+    <p class="why-lead why-lead-small gsap-fade-up">
+      <span class="quote-mark" aria-hidden="true">&ldquo;</span>Five ways to <em>begin</em> — each held to the same standard of attention.
     </p>
 
     <div class="services-grid">
-      <div class="service gsap-fade-up">
+      <article class="service gsap-fade-up">
         <span class="service-num">No. 01</span>
         <h3 class="service-title"><em>Birth Chart</em><br>Initial Reading</h3>
-        <div class="service-duration">A week of study · three one-hour sessions</div>
+        <p class="service-duration">A week of study · three one-hour sessions</p>
         <p class="service-desc">A complete portrait of the chart you were born under. Personality, patterns, gifts, the seasons of your life. Both Silva and Kamelia work the reading together, across a careful week, before we sit with you.</p>
         <div class="service-footer">
-          <div class="service-price">USD 300 <span class="small">· one-time</span></div>
-          <a href="#booking" class="service-link">Book</a>
+          <p class="service-price">USD 300 <span class="small">· one-time</span></p>
+          <a href="#booking" class="service-link">Book<span aria-hidden="true"> →</span></a>
         </div>
-      </div>
+      </article>
 
-      <div class="service gsap-fade-up">
+      <article class="service gsap-fade-up">
         <span class="service-num">No. 02</span>
         <h3 class="service-title"><em>Astrology</em><br>Consultation</h3>
-        <div class="service-duration">One hour · for clients with a reading on file</div>
+        <p class="service-duration">One hour · for clients with a reading on file</p>
         <p class="service-desc">A focused hour for the moments in between — a decision, a transit you're feeling, a question that has surfaced. Available to clients who have completed an Initial Reading.</p>
         <div class="service-footer">
-          <div class="service-price">USD 100 <span class="small">· per hour</span></div>
-          <a href="#booking" class="service-link">Book</a>
+          <p class="service-price">USD 100 <span class="small">· per hour</span></p>
+          <a href="#booking" class="service-link">Book<span aria-hidden="true"> →</span></a>
         </div>
-      </div>
+      </article>
 
-      <div class="service gsap-fade-up">
+      <article class="service gsap-fade-up">
         <span class="service-num">No. 03</span>
         <h3 class="service-title"><em>Astrology</em><br>Subscription</h3>
-        <div class="service-duration">Ongoing guidance · seasonal check-ins</div>
+        <p class="service-duration">Ongoing guidance · seasonal check-ins</p>
         <p class="service-desc">For those who want astrology as a steady companion. Regular consultations, transit alerts when the moment matters, and our attention through the year's important crossings.</p>
         <div class="service-footer">
-          <div class="service-price">USD 50 <span class="small">/ mo</span> · <em>500</em> <span class="small">/ yr</span></div>
-          <a href="#booking" class="service-link">Subscribe</a>
+          <p class="service-price">USD 50 <span class="small">/ mo</span> · <em>500</em> <span class="small">/ yr</span></p>
+          <a href="#booking" class="service-link">Subscribe<span aria-hidden="true"> →</span></a>
         </div>
-      </div>
+      </article>
 
-      <div class="service gsap-fade-up">
+      <article class="service gsap-fade-up">
         <span class="service-num">No. 04</span>
         <h3 class="service-title"><em>Tarot</em><br>Reading</h3>
-        <div class="service-duration">One hour · standalone or alongside astrology</div>
+        <p class="service-duration">One hour · standalone or alongside astrology</p>
         <p class="service-desc">A different lens. Where astrology reads the long arc, tarot speaks to the present question. Drawn and read with the same attention, recorded for your return.</p>
         <div class="service-footer">
-          <div class="service-price">USD 100 <span class="small">· per session</span></div>
-          <a href="#booking" class="service-link">Book</a>
+          <p class="service-price">USD 100 <span class="small">· per session</span></p>
+          <a href="#booking" class="service-link">Book<span aria-hidden="true"> →</span></a>
         </div>
-      </div>
+      </article>
 
-      <div class="service featured gsap-fade-up">
+      <article class="service featured gsap-fade-up">
         <span class="service-num">No. 05</span>
         <h3 class="service-title"><em>Astrology</em> for Business</h3>
-        <div class="service-duration">Custom engagement · scoped to the question</div>
+        <p class="service-duration">Custom engagement · scoped to the question</p>
         <p class="service-desc">For founders, leaders, and decision-makers who want astrology brought to bear on the choices that matter — timing a launch, reading a partnership, navigating a season of change. Every engagement is shaped to the question.</p>
         <div class="service-footer">
-          <div class="service-price"><em>Inquire</em> <span class="small">· bespoke</span></div>
-          <a href="#booking" class="service-link">Begin a conversation</a>
+          <p class="service-price"><em>Inquire</em> <span class="small">· bespoke</span></p>
+          <a href="#booking" class="service-link">Begin a conversation<span aria-hidden="true"> →</span></a>
         </div>
-      </div>
+      </article>
     </div>
 
-    <div class="service-virtual">
+    <p class="service-virtual">
       All sessions are held privately over Zoom and recorded — yours to revisit, whenever the moment calls for it.
-    </div>
+    </p>
   </div>
 </section>
 
 <!-- ─── PROCESSES ─── -->
-<section class="processes">
+<section class="processes" aria-labelledby="processes-heading">
   <div class="container">
     <div class="section-head gsap-fade-up">
-      <div class="section-num">IV.</div>
-      <h2 class="section-head-title">Astrology &amp; <em>Tarot</em> · how each unfolds</h2>
+      <span class="section-num" aria-hidden="true">IV.</span>
+      <h2 class="section-head-title" id="processes-heading">Astrology &amp; <em>Tarot</em> · how each unfolds</h2>
     </div>
 
     <div class="processes-grid">
-      <div class="process gsap-fade-up">
-        <div class="process-tag">A slow art</div>
+      <article class="process gsap-fade-up">
+        <p class="process-tag">A slow art</p>
         <h3 class="process-title"><em>Astrology</em> reading</h3>
         <ol class="process-flow">
           <li><strong>Intake</strong>Birth date, time, and place — the three coordinates of your chart.</li>
@@ -1529,10 +300,10 @@
           <li><strong>Third session</strong>Your questions, in full. Time for whatever wants to be discussed.</li>
           <li><strong>After</strong>Recordings and notes are yours. We remain available for what comes next.</li>
         </ol>
-      </div>
+      </article>
 
-      <div class="process gsap-fade-up">
-        <div class="process-tag">A present question</div>
+      <article class="process gsap-fade-up">
+        <p class="process-tag">A present question</p>
         <h3 class="process-title"><em>Tarot</em> reading</h3>
         <ol class="process-flow">
           <li><strong>The question</strong>You bring what is on your mind — clear, or still forming.</li>
@@ -1541,105 +312,111 @@
           <li><strong>The threads</strong>Where useful, we connect the reading back to your astrology.</li>
           <li><strong>The recording</strong>Yours, to return to as the question evolves.</li>
         </ol>
-      </div>
+      </article>
     </div>
   </div>
 </section>
 
 <!-- ─── BILLIONAIRES (J.P. Morgan) ─── -->
-<section class="billionaires">
+<section class="billionaires" aria-label="A note from history">
   <div class="container">
-    <div class="eyebrow billionaires-eyebrow">A note from history</div>
-    <p class="billionaires-quote">
-      "Millionaires don't use astrology — <span class="gold">billionaires do.</span>"
-    </p>
-    <div class="billionaires-attr">— attributed to J. P. Morgan</div>
+    <p class="eyebrow billionaires-eyebrow">A note from history</p>
+    <blockquote class="billionaires-quote">
+      &ldquo;Millionaires don't use astrology — <span class="gold">billionaires do.</span>&rdquo;
+    </blockquote>
+    <p class="billionaires-attr">— a saying often attributed to J. P. Morgan</p>
   </div>
 </section>
 
 <!-- ─── ETHICS ─── -->
-<section class="ethics">
+<section class="ethics" aria-labelledby="ethics-heading">
   <div class="container">
-    <div class="ethics-mark gsap-fade-up">✦</div>
-    <h2 class="ethics-title gsap-fade-up">Our <em>ethical code.</em></h2>
+    <p class="ethics-mark gsap-fade-up" aria-hidden="true">✦</p>
+    <h2 class="ethics-title gsap-fade-up" id="ethics-heading">Our <em>ethical code.</em></h2>
     <p class="ethics-text gsap-fade-up">
       We hold ourselves to the standards of professional astrology practice — confidentiality, integrity, and the unwavering principle that astrology offers <em>guidance, not commands.</em> What we share is offered with care; what you do with it is yours alone.
     </p>
 
-    <div class="ethics-disclaimer gsap-fade-up">
-      <span class="ethics-disclaimer-label">Disclaimer</span>
-      Astrology is a tool for reflection and self-understanding, not a substitute for professional medical, legal, financial, or psychological advice. The guidance we offer is meant to illuminate possibilities — the final decision in any matter belongs entirely to you. You may follow what we share, or you may set it aside. Either choice is honored.
+    <div class="ethics-disclaimer gsap-fade-up" role="note">
+      <p class="ethics-disclaimer-label">Disclaimer</p>
+      <p>Astrology is a tool for reflection and self-understanding, not a substitute for professional medical, legal, financial, or psychological advice. The guidance we offer is meant to illuminate possibilities — the final decision in any matter belongs entirely to you. You may follow what we share, or you may set it aside. Either choice is honored.</p>
     </div>
 
-    <div class="ethics-signatures gsap-fade-up">
-      Silva <span>✦</span> Kamelia
-    </div>
+    <p class="ethics-signatures gsap-fade-up">
+      Silva <span aria-hidden="true">✦</span> Kamelia
+    </p>
   </div>
 </section>
 
 <!-- ─── TESTIMONIALS ─── -->
-<section class="testimonials">
+<section class="testimonials" aria-labelledby="testimonials-heading">
   <div class="container">
     <div class="section-head gsap-fade-up">
-      <div class="section-num">V.</div>
-      <h2 class="section-head-title">In their <em>own words</em></h2>
+      <span class="section-num" aria-hidden="true">V.</span>
+      <h2 class="section-head-title" id="testimonials-heading">In their <em>own words</em></h2>
     </div>
 
     <div class="testimonials-grid">
-      <div class="testimonial gsap-fade-up">
-        <div class="testimonial-mark">"</div>
-        <p class="testimonial-text">They told me to wait two years before leaving my job. I did. What I built in those years is the reason I'm where I am.</p>
-        <div class="testimonial-attr">
-          <div class="name">D. M.</div>
-          Career navigation · 2022
-        </div>
-      </div>
+      <figure class="testimonial gsap-fade-up">
+        <p class="testimonial-mark" aria-hidden="true">&ldquo;</p>
+        <blockquote class="testimonial-text">
+          She doesn't just share knowledge — she truly helps guide me toward making more thoughtful, responsible, and grounded decisions. Her insight has never led me in the wrong direction. Every conversation is meaningful and something I genuinely look forward to. My monthly sessions are truly priceless.
+        </blockquote>
+        <figcaption class="testimonial-attr">
+          <span class="name">Stef Z.</span>
+          Monthly sessions · ongoing
+        </figcaption>
+      </figure>
 
-      <div class="testimonial gsap-fade-up">
-        <div class="testimonial-mark">"</div>
-        <p class="testimonial-text">I came to them in the middle of a divorce. They didn't tell me what to do — they helped me see what I already knew. That's the gift.</p>
-        <div class="testimonial-attr">
-          <div class="name">A. K.</div>
-          Life transition · 2021
-        </div>
-      </div>
+      <figure class="testimonial gsap-fade-up">
+        <p class="testimonial-mark" aria-hidden="true">&ldquo;</p>
+        <blockquote class="testimonial-text">
+          Her work isn't simply astrology — it is deep understanding, and guidance at exactly the right moment. After a conversation with her, you are left with clarity, calm, and a new perspective. I recommend her to anyone seeking a true connection with themselves and more conscious decisions.
+        </blockquote>
+        <figcaption class="testimonial-attr">
+          <span class="name">Kiril M.</span>
+          Astrology &amp; spiritual practice
+        </figcaption>
+      </figure>
 
-      <div class="testimonial gsap-fade-up">
-        <div class="testimonial-mark">"</div>
-        <p class="testimonial-text">The amount of care they put into one chart is something I have not seen elsewhere. They cross-check each other. They don't guess.</p>
-        <div class="testimonial-attr">
-          <div class="name">M. R.</div>
-          Founder, on business astrology · 2023
-        </div>
-      </div>
+      <figure class="testimonial gsap-fade-up">
+        <p class="testimonial-mark" aria-hidden="true">&ldquo;</p>
+        <blockquote class="testimonial-text">
+          The amount of care they put into one chart is something I have not seen elsewhere. They cross-check each other. They don't guess. When the chart says wait, they tell you — and they are right.
+        </blockquote>
+        <figcaption class="testimonial-attr">
+          <span class="name">D. M.</span>
+          On long-term guidance
+        </figcaption>
+      </figure>
     </div>
   </div>
 </section>
 
 <!-- ─── ABOUT ─── -->
-<section class="about" id="about">
+<section class="about" id="about" aria-labelledby="about-heading">
   <div class="container">
     <div class="section-head gsap-fade-up">
-      <div class="section-num">VI.</div>
-      <h2 class="section-head-title">Silva &amp; <em>Kamelia</em></h2>
+      <span class="section-num" aria-hidden="true">VI.</span>
+      <h2 class="section-head-title" id="about-heading">Silva &amp; <em>Kamelia</em></h2>
     </div>
 
     <div class="about-grid">
-      <div class="about-bio gsap-fade-up">
+      <article class="about-bio gsap-fade-up">
         <h3 class="about-bio-name"><em>Silva</em></h3>
         <p class="about-bio-role">Astrologer · co-founder</p>
         <p class="about-bio-text">
           Silva has practiced astrology for more than six years and has guided over thirty clients through career changes, business decisions, divorces, and the slow work of building a life with intention. Her approach is patient, intuitive, and unafraid to insist when the chart insists.
         </p>
-      </div>
+      </article>
 
-      <div class="about-bio gsap-fade-up">
+      <article class="about-bio gsap-fade-up">
         <h3 class="about-bio-name"><em>Kamelia</em></h3>
         <p class="about-bio-role">Astrologer · co-founder</p>
         <p class="about-bio-text">
           Kamelia brings a deep methodical practice and a tarot reader's intuition for the present question. She and Silva consult on every client — two perspectives, one careful reading.
         </p>
-      </div>
+      </article>
     </div>
 
     <div class="about-together gsap-fade-up">
@@ -1650,73 +427,64 @@
   </div>
 </section>
 
-<!-- ─── BOOKING ─── -->
-<section class="booking" id="booking">
+<!-- ─── BOOKING (Zoom Scheduler embed) ─── -->
+<section class="booking" id="booking" aria-labelledby="booking-heading">
   <div class="container">
-    <div class="booking-grid">
-      <div class="booking-intro">
-        <div class="eyebrow gsap-fade-up" style="margin-bottom: 2rem;">Begin a conversation</div>
-        <h2 class="gsap-fade-up">Tell us a little, and we will <em>write back.</em></h2>
-        <p class="gsap-fade-up">No automated systems. Silva or Kamelia will read your message and reply within two days.</p>
+    <div class="booking-intro">
+      <p class="eyebrow gsap-fade-up booking-eyebrow">Begin a conversation</p>
+      <h2 class="gsap-fade-up booking-heading" id="booking-heading">Book a <em>free intro call.</em></h2>
+      <p class="booking-lead gsap-fade-up">
+        Thirty minutes over Zoom — no reading delivered, just a chance for us to listen, answer your questions, and help you decide which service fits the moment you're in.
+      </p>
 
-        <div class="booking-meta gsap-fade-up">
-          <strong>What happens next</strong>
-          We confirm the service that fits, send a short intake form for your birth details, and arrange your first Zoom session. Payment is handled through PayPal once the session is scheduled — no charges before then.
-        </div>
+      <ul class="booking-meta gsap-fade-up">
+        <li><strong>Length</strong>30 minutes, over Zoom</li>
+        <li><strong>Cost</strong>Complimentary — no payment</li>
+        <li><strong>Language</strong>English or Bulgarian (mention when booking)</li>
+        <li><strong>What to bring</strong>A sense of what brings you here. No prior astrology knowledge needed.</li>
+      </ul>
+    </div>
+
+    <!-- Zoom Scheduler Embed -->
+    <div class="booking-embed-wrap gsap-fade-up">
+      <div class="booking-embed">
+        <iframe
+          src="https://scheduler.zoom.us/silva-2jr2rk/book-a-free-intro-call?embed=true"
+          title="Book a free 30-minute intro call with Silva and Kamelia"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
       </div>
-
-      <form class="booking-form gsap-fade-up" onsubmit="event.preventDefault(); alert('Thank you. Silva or Kamelia will reply within two days.');">
-        <div class="form-row two-col">
-          <label>Your name</label>
-          <input type="text" placeholder="First" required>
-          <input type="text" placeholder="Last" required>
-        </div>
-        <div class="form-row">
-          <label>Email</label>
-          <input type="email" placeholder="you@example.com" required>
-        </div>
-        <div class="form-row">
-          <label>Service of interest</label>
-          <select>
-            <option>Birth Chart Initial Reading — USD 300</option>
-            <option>Astrology Consultation — USD 100</option>
-            <option>Astrology Subscription — USD 50/mo or 500/yr</option>
-            <option>Tarot Reading — USD 100</option>
-            <option>Astrology for Business — Inquire</option>
-            <option>Not sure yet — let's talk</option>
-          </select>
-        </div>
-        <div class="form-row">
-          <label>What brings you here?</label>
-          <textarea placeholder="A few sentences are enough. We will reply with what comes next."></textarea>
-        </div>
-        <button type="submit" class="btn gold" style="width: 100%;">Send</button>
-        <p class="booking-note">A full booking system is coming soon. For now, every message reaches us directly.</p>
-      </form>
+      <p class="booking-fallback">
+        Trouble seeing the scheduler? <a href="https://scheduler.zoom.us/silva-2jr2rk/book-a-free-intro-call" target="_blank" rel="noopener noreferrer">Open it in a new tab →</a>
+      </p>
     </div>
   </div>
 </section>
 
+</main>
+
 <!-- ─── FOOTER ─── -->
-<footer>
+<footer aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="visually-hidden">Site footer</h2>
   <div class="footer-content">
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="footer-brand-name"><em>Star</em><span class="star">✦</span>Life</div>
+        <p class="footer-brand-name"><em>Star</em><span class="star" aria-hidden="true">✦</span>Life</p>
         <p class="footer-brand-tag">A small astrology practice by Silva and Kamelia. Guidance, written in the stars.</p>
       </div>
 
-      <div class="footer-col">
-        <h4>Practice</h4>
+      <nav class="footer-col" aria-label="Practice">
+        <h3>Practice</h3>
         <ul>
           <li><a href="#why">Why Astrology</a></li>
           <li><a href="#approach">Our Approach</a></li>
           <li><a href="#about">About Us</a></li>
         </ul>
-      </div>
+      </nav>
 
-      <div class="footer-col">
-        <h4>Services</h4>
+      <nav class="footer-col" aria-label="Services">
+        <h3>Services</h3>
         <ul>
           <li><a href="#services">Birth Chart Reading</a></li>
           <li><a href="#services">Consultations</a></li>
@@ -1724,213 +492,30 @@
           <li><a href="#services">Tarot Reading</a></li>
           <li><a href="#services">For Business</a></li>
         </ul>
-      </div>
+      </nav>
 
-      <div class="footer-col">
-        <h4>Contact</h4>
+      <nav class="footer-col" aria-label="Contact">
+        <h3>Contact</h3>
         <ul>
-          <li><a href="#booking">Book a Reading</a></li>
+          <li><a href="#booking">Book an Intro Call</a></li>
           <li><a href="mailto:hello@star-life.co">hello@star-life.co</a></li>
         </ul>
-      </div>
+      </nav>
     </div>
 
     <div class="footer-bottom">
-      <div>© MMXXVI Star Life · <em>All rights reserved.</em></div>
-      <div>Of the stars · <em>made with care</em></div>
+      <p>© MMXXVI Star Life · <em>All rights reserved.</em></p>
+      <p>Of the stars · <em>made with care</em></p>
     </div>
   </div>
 </footer>
 
 <!-- GSAP -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 
-<script>
-  gsap.registerPlugin(ScrollTrigger);
-
-  // ─── HERO ENTRANCE ───
-  const heroTl = gsap.timeline({ delay: 0.2 });
-
-  heroTl
-    .to('.hero-eyebrow', { opacity: 0.6, duration: 1, ease: 'power2.out' })
-    .to('.hero-title .line-inner', {
-      y: 0,
-      duration: 1.4,
-      ease: 'power4.out',
-      stagger: 0.12
-    }, '-=0.5')
-    .to('.hero-sub', { opacity: 0.85, duration: 1.2, ease: 'power2.out' }, '-=0.7')
-    .to('.hero-cta', { opacity: 1, duration: 1, ease: 'power2.out' }, '-=0.7')
-    .to('.hero-meta', { opacity: 1, duration: 1, ease: 'power2.out' }, '-=0.5');
-
-  // ─── HERO STAR FIELD ───
-  const starField = document.getElementById('starField');
-  const numStars = 30;
-
-  for (let i = 0; i < numStars; i++) {
-    const star = document.createElement('div');
-    star.className = 'star';
-    star.style.left = Math.random() * 100 + '%';
-    star.style.top = Math.random() * 100 + '%';
-    const size = 1 + Math.random() * 2;
-    star.style.width = size + 'px';
-    star.style.height = size + 'px';
-    starField.appendChild(star);
-
-    gsap.to(star, {
-      opacity: 0.2 + Math.random() * 0.5,
-      duration: 1.5 + Math.random() * 2,
-      delay: Math.random() * 3,
-      ease: 'power2.inOut',
-      onComplete: function() {
-        gsap.to(star, {
-          opacity: 0.05 + Math.random() * 0.3,
-          duration: 2 + Math.random() * 3,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut'
-        });
-      }
-    });
-  }
-
-  // ─── APPROACH PARALLAX STARS ───
-  const approachStars = document.getElementById('approachStars');
-  for (let i = 0; i < 40; i++) {
-    const s = document.createElement('div');
-    s.className = 'pstar';
-    s.style.left = Math.random() * 100 + '%';
-    s.style.top = Math.random() * 100 + '%';
-    const sz = 1 + Math.random() * 1.5;
-    s.style.width = sz + 'px';
-    s.style.height = sz + 'px';
-    s.style.opacity = 0.3 + Math.random() * 0.5;
-    approachStars.appendChild(s);
-  }
-
-  // Parallax on the approach stars
-  gsap.to('.pstar', {
-    y: (i) => -50 - Math.random() * 100,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '.approach',
-      start: 'top bottom',
-      end: 'bottom top',
-      scrub: 1
-    }
-  });
-
-  // ─── NAV SCROLL STATE ───
-  const nav = document.getElementById('nav');
-  ScrollTrigger.create({
-    start: 'top -50',
-    onUpdate: (self) => {
-      if (self.scroll() > 50) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-    }
-  });
-
-  // ─── GENERIC FADE-UP ON SCROLL ───
-  gsap.utils.toArray('.gsap-fade-up').forEach(el => {
-    gsap.to(el, {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: el,
-        start: 'top 85%',
-        toggleActions: 'play none none none'
-      }
-    });
-  });
-
-  // ─── STAGGERED REVEAL FOR GROUPS ───
-  // Service cards stagger
-  ScrollTrigger.create({
-    trigger: '.services-grid',
-    start: 'top 80%',
-    onEnter: () => {
-      gsap.fromTo('.service',
-        { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, duration: 1, stagger: 0.12, ease: 'power3.out', overwrite: 'auto' }
-      );
-    }
-  });
-
-  // Approach steps stagger
-  ScrollTrigger.create({
-    trigger: '.approach-steps',
-    start: 'top 80%',
-    onEnter: () => {
-      gsap.fromTo('.approach-step',
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.9, stagger: 0.15, ease: 'power3.out', overwrite: 'auto' }
-      );
-    }
-  });
-
-  // Testimonials stagger
-  ScrollTrigger.create({
-    trigger: '.testimonials-grid',
-    start: 'top 80%',
-    onEnter: () => {
-      gsap.fromTo('.testimonial',
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.9, stagger: 0.15, ease: 'power3.out', overwrite: 'auto' }
-      );
-    }
-  });
-
-  // ─── COUNTER ANIMATIONS ───
-  document.querySelectorAll('[data-count]').forEach(counter => {
-    const target = parseInt(counter.dataset.count);
-    const obj = { val: 0 };
-
-    ScrollTrigger.create({
-      trigger: counter,
-      start: 'top 80%',
-      onEnter: () => {
-        gsap.to(obj, {
-          val: target,
-          duration: 2,
-          ease: 'power2.out',
-          onUpdate: () => {
-            counter.textContent = Math.round(obj.val);
-          }
-        });
-      }
-    });
-  });
-
-  // ─── J.P. MORGAN QUOTE PARALLAX ───
-  gsap.to('.billionaires-quote', {
-    y: -30,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '.billionaires',
-      start: 'top bottom',
-      end: 'bottom top',
-      scrub: 1.5
-    }
-  });
-
-  // ─── SMOOTH SCROLL FOR ANCHOR LINKS ───
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', (e) => {
-      const target = document.querySelector(link.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        const offset = target.getBoundingClientRect().top + window.scrollY - 80;
-        window.scrollTo({ top: offset, behavior: 'smooth' });
-      }
-    });
-  });
-</script>
+<!-- App script -->
+<script src="/assets/js/main.js" defer></script>
 
 </body>
 </html>

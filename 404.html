@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Star Life — Page not found</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<style>
+  .not-found {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 1.5rem;
+    background:
+      radial-gradient(ellipse at 75% 25%, rgba(201, 167, 122, 0.12), transparent 55%),
+      radial-gradient(ellipse at 15% 85%, rgba(168, 184, 200, 0.10), transparent 55%),
+      var(--cream);
+  }
+  .nf-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(6rem, 18vw, 12rem);
+    line-height: 1;
+    color: var(--gold-deep);
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+  }
+  .nf-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    color: var(--ink);
+  }
+  .nf-title em { font-style: italic; color: var(--gold-deep); }
+  .nf-sub {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--ink-soft);
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+<main class="not-found">
+  <p class="nf-num">✦</p>
+  <h1 class="nf-title">A <em>quiet corner</em> of the sky.</h1>
+  <p class="nf-sub">The page you were looking for isn't here. Perhaps the stars have moved — or perhaps it was never written. Either way, you're welcome to find your way back.</p>
+  <a href="/" class="btn">Return home</a>
+</main>
+</body>
+</html>
