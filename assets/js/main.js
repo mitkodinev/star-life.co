@@ -73,6 +73,12 @@
       document.querySelectorAll('.hero-title .line-inner').forEach(el => {
         el.style.transform = 'translateY(0)';
       });
+      document.querySelectorAll('.prince-word, .prince-attr').forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+      const emph = document.querySelector('.prince-emph');
+      if (emph) emph.classList.add('in-view');
       return;
     }
 
@@ -83,6 +89,10 @@
       gsap.set('.gsap-fade-up, .gsap-fade', { opacity: 1, y: 0, clearProps: 'transform' });
       gsap.set('.hero-eyebrow, .hero-sub, .hero-cta, .hero-meta', { opacity: 1 });
       gsap.set('.hero-title .line-inner', { y: 0 });
+      gsap.set('.prince-word', { opacity: 1, y: 0 });
+      gsap.set('.prince-attr', { opacity: 1, y: 0 });
+      const emph = document.querySelector('.prince-emph');
+      if (emph) emph.classList.add('in-view');
       // Counters: just write the final value
       document.querySelectorAll('[data-count]').forEach(el => {
         el.textContent = el.dataset.count;
@@ -91,18 +101,77 @@
     }
 
     // ─── HERO ENTRANCE ───
-    const heroTl = gsap.timeline({ delay: 0.2 });
+    // Main entrance timeline — staggered, theatrical, gentle
+    const heroTl = gsap.timeline({ delay: 0.25 });
     heroTl
-      .to('.hero-eyebrow', { opacity: 1, duration: 1, ease: 'power2.out' })
+      // Eyebrow drifts in
+      .fromTo('.hero-eyebrow',
+        { opacity: 0, x: -20 },
+        { opacity: 1, x: 0, duration: 1.1, ease: 'power2.out' }
+      )
+      // Title lines rise from below with overlap
       .to('.hero-title .line-inner', {
         y: 0,
-        duration: 1.4,
-        ease: 'power4.out',
-        stagger: 0.12
-      }, '-=0.5')
-      .to('.hero-sub', { opacity: 1, duration: 1.2, ease: 'power2.out' }, '-=0.7')
-      .to('.hero-cta', { opacity: 1, duration: 1, ease: 'power2.out' }, '-=0.7')
-      .to('.hero-meta', { opacity: 1, duration: 1, ease: 'power2.out' }, '-=0.5');
+        duration: 1.5,
+        ease: 'expo.out',
+        stagger: 0.14
+      }, '-=0.6')
+      // Subtitle fades in with slight upward drift
+      .fromTo('.hero-sub',
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 1.2, ease: 'power2.out' },
+        '-=0.8'
+      )
+      // CTA buttons rise as a pair
+      .fromTo('.hero-cta > *',
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.9, stagger: 0.1, ease: 'power2.out' },
+        '-=0.7'
+      )
+      // Meta items fade in last, at the corners (parent shown first, items stagger)
+      .set('.hero-meta', { opacity: 1 })
+      .fromTo('.hero-meta-item',
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: 'power1.out' },
+        '-=0.6'
+      );
+
+    // Subtle scroll-driven parallax on hero title — drifts up & fades as user scrolls down
+    gsap.to('.hero-title', {
+      y: -60,
+      opacity: 0.4,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1
+      }
+    });
+    gsap.to('.hero-sub', {
+      y: -40,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1
+      }
+    });
+
+    // Floating "tap" on the gold "rightly." word — a tiny breath after the entrance
+    gsap.fromTo('.hero-title em',
+      { opacity: 0.6 },
+      {
+        opacity: 1,
+        duration: 2.4,
+        delay: 2.3,
+        ease: 'sine.inOut',
+        repeat: -1,
+        yoyo: true,
+        yoyoEase: 'sine.inOut'
+      }
+    );
 
     // ─── HERO STAR FIELD ───
     const starField = document.getElementById('starField');
@@ -235,17 +304,113 @@
       });
     });
 
-    // ─── J.P. MORGAN PARALLAX ───
-    gsap.to('.billionaires-quote', {
-      y: -30,
-      ease: 'none',
+    // ─── THE PRINCE (Little Prince quote) ───
+    const princeStars = document.getElementById('princeStars');
+    if (princeStars) {
+      // Build a drifting starfield with two layers (depth)
+      const totalStars = 55;
+      const stars = [];
+      for (let i = 0; i < totalStars; i++) {
+        const s = document.createElement('div');
+        s.className = 'ps';
+        const isBright = Math.random() > 0.78; // ~22% bright stars
+        if (isBright) s.classList.add('bright');
+        const size = isBright ? 2.2 + Math.random() * 1.2 : 1 + Math.random() * 1.2;
+        s.style.left = Math.random() * 100 + '%';
+        s.style.top = Math.random() * 100 + '%';
+        s.style.width = size + 'px';
+        s.style.height = size + 'px';
+        princeStars.appendChild(s);
+        stars.push({ el: s, bright: isBright });
+      }
+
+      // Twinkle: each star fades up & down independently
+      stars.forEach(({ el, bright }) => {
+        const baseOpacity = bright ? 0.7 : 0.35;
+        gsap.set(el, { opacity: 0 });
+        gsap.to(el, {
+          opacity: baseOpacity + Math.random() * 0.25,
+          duration: 2 + Math.random() * 2,
+          delay: Math.random() * 2,
+          ease: 'sine.inOut',
+          onComplete() {
+            gsap.to(el, {
+              opacity: baseOpacity * 0.4 + Math.random() * baseOpacity,
+              duration: 2 + Math.random() * 4,
+              repeat: -1,
+              yoyo: true,
+              ease: 'sine.inOut'
+            });
+          }
+        });
+      });
+
+      // Slow scroll-driven drift (the whole field moves up gently as you scroll past)
+      gsap.to(stars.map(s => s.el), {
+        y: () => -40 - Math.random() * 80,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.prince',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1.5
+        }
+      });
+    }
+
+    // Eyebrow + words reveal as the section enters view
+    const princeTl = gsap.timeline({
       scrollTrigger: {
-        trigger: '.billionaires',
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1.5
+        trigger: '.prince',
+        start: 'top 70%',
+        toggleActions: 'play none none none'
       }
     });
+
+    princeTl
+      // Eyebrow fades up
+      .from('.prince-eyebrow', {
+        opacity: 0,
+        y: 12,
+        duration: 1,
+        ease: 'power2.out'
+      })
+      // Line 1 — opening lines, fast cascading words
+      .to('.prince-line-1 .prince-word', {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        stagger: 0.04,
+        ease: 'power2.out'
+      }, '-=0.4')
+      // Pause, then line 2 — the heart of the quote, slower & emphasized
+      .to('.prince-line-2 .prince-word', {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        stagger: 0.07,
+        ease: 'power2.out'
+      }, '+=0.3')
+      // Trigger the underline on "guides" right after the word lands
+      .add(() => {
+        const emph = document.querySelector('.prince-emph');
+        if (emph) emph.classList.add('in-view');
+      }, '-=0.15')
+      // Pause again, then line 3 — the personal promise
+      .to('.prince-line-3 .prince-word', {
+        opacity: 1,
+        y: 0,
+        duration: 0.55,
+        stagger: 0.035,
+        ease: 'power2.out'
+      }, '+=0.5')
+      // Attribution last
+      .to('.prince-attr', {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power2.out'
+      }, '+=0.3');
   }
 
   // GSAP is loaded with defer — wait for window load to be safe

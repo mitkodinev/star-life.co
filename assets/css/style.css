@@ -842,49 +842,139 @@ section { padding: 8rem 0; position: relative; }
   margin-bottom: 0.2rem;
 }
 
-/* ─── BILLIONAIRES (J.P. Morgan) ─── */
-.billionaires {
+/* ─── THE PRINCE (Little Prince quote) ─── */
+.prince {
   background: var(--night);
   color: var(--cream);
   text-align: center;
-  padding: 10rem 3rem;
+  padding: 11rem 3rem;
   position: relative;
   overflow: hidden;
+  isolation: isolate;
 }
-.billionaires::before {
+.prince::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 50%, rgba(201, 167, 122, 0.15), transparent 60%);
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(201, 167, 122, 0.18), transparent 55%),
+    radial-gradient(ellipse at 80% 80%, rgba(168, 184, 200, 0.08), transparent 60%);
   pointer-events: none;
+  z-index: -1;
 }
-.billionaires .container { position: relative; z-index: 1; }
-.billionaires-eyebrow {
-  margin-bottom: 2rem;
-  color: var(--gold-on-night);
-}
-.billionaires-eyebrow::before { background: var(--gold-on-night); }
 
-.billionaires-quote {
+/* Drifting starfield specific to the prince section */
+.prince-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.prince-stars .ps {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--gold-on-night);
+  opacity: 0;
+}
+.prince-stars .ps.bright {
+  box-shadow: 0 0 6px 1px rgba(212, 181, 138, 0.5);
+}
+
+.prince .container {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+}
+
+.prince-eyebrow {
+  margin-bottom: 3rem;
+  color: var(--gold-on-night);
+  justify-content: center;
+  display: inline-flex;
+}
+.prince-eyebrow::before { background: var(--gold-on-night); }
+
+.prince-quote {
   font-family: 'Fraunces', serif;
   font-weight: 300;
-  font-style: italic;
-  font-size: clamp(2.2rem, 5vw, 4.2rem);
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.6rem, 3.4vw, 2.9rem);
+  line-height: 1.35;
+  letter-spacing: -0.015em;
   max-width: 1000px;
-  margin: 0 auto 2rem;
-  font-variation-settings: "opsz" 144;
+  margin: 0 auto;
   color: var(--cream);
+  font-variation-settings: "opsz" 144;
 }
-.billionaires-quote .gold { color: var(--gold-on-night); font-style: italic; }
-.billionaires-attr {
+
+.prince-line {
+  display: block;
+  margin: 0 0 0.6em;
+  /* allow flex wrap of word spans for staggered reveal */
+}
+.prince-line:last-child { margin-bottom: 0; }
+
+/* Smaller body lines, larger emphasis line */
+.prince-line-2 {
+  font-style: italic;
+  font-size: 1.15em;
+  margin: 1.2em 0;
+}
+
+.prince-line-3 {
+  font-size: 0.95em;
+  color: var(--cream-quiet);
+  margin-top: 1.4em;
+}
+
+/* Each word is its own span — initial state hidden, animated by GSAP */
+.prince-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+  margin-right: 0.22em;
+  white-space: nowrap;
+}
+
+/* "Guides" — the operative word */
+.prince-emph em {
+  font-style: italic;
+  color: var(--gold-on-night);
+  position: relative;
+  display: inline-block;
+}
+.prince-emph em::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.12em;
+  height: 1px;
+  background: var(--gold-on-night);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.9s cubic-bezier(0.25, 0.1, 0.25, 1) 0.4s;
+}
+.prince-emph.in-view em::after {
+  transform: scaleX(1);
+}
+
+.prince-attr {
   font-family: 'Fraunces', serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.35em;
+  font-size: 0.78rem;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--cream-quiet);
-  margin-top: 2rem;
+  margin-top: 3.5rem;
+  opacity: 0;
+  transform: translateY(10px);
+}
+.prince-attr em {
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0.04em;
+  font-size: 1rem;
+  color: var(--cream);
+  margin-left: 0.4em;
 }
 
 /* ─── ETHICS ─── */
@@ -1266,6 +1356,14 @@ footer::before {
   .hero-title .line-inner {
     transform: none !important;
   }
+  .prince-word, .prince-attr {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .prince-emph em::after {
+    transform: scaleX(1) !important;
+    transition: none !important;
+  }
 }
 
 /* ─── RESPONSIVE ─── */
@@ -1358,7 +1456,7 @@ footer::before {
     text-align: center;
   }
 
-  .billionaires { padding: 6rem 1.5rem; }
+  .prince { padding: 7rem 1.5rem; }
   footer { padding: 4rem 1.5rem 2rem; }
 
   .booking-embed {
