@@ -70,6 +70,10 @@
       document.querySelectorAll('.hero-eyebrow, .hero-sub, .hero-cta, .hero-meta').forEach(el => {
         el.style.opacity = '1';
       });
+      document.querySelectorAll('.hero-universe').forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = el.style.transform || 'translateY(-50%)';
+      });
       document.querySelectorAll('.hero-title .line-inner').forEach(el => {
         el.style.transform = 'translateY(0)';
       });
@@ -93,6 +97,7 @@
       // Honor user preference: show everything, no animation
       gsap.set('.gsap-fade-up, .gsap-fade', { opacity: 1, y: 0, clearProps: 'transform' });
       gsap.set('.hero-eyebrow, .hero-sub, .hero-cta, .hero-meta', { opacity: 1 });
+      gsap.set('.hero-universe', { opacity: 1, scale: 1 });
       gsap.set('.hero-title .line-inner', { y: 0 });
       gsap.set('.prince-word', { opacity: 1, y: 0 });
       gsap.set('.prince-attr', { opacity: 1, y: 0 });
@@ -111,10 +116,16 @@
     // Main entrance timeline — staggered, theatrical, gentle
     const heroTl = gsap.timeline({ delay: 0.25 });
     heroTl
+      // Universe illustration fades in slowly alongside the eyebrow — soft, ambient
+      .fromTo('.hero-universe',
+        { opacity: 0, scale: 0.96 },
+        { opacity: 1, scale: 1, duration: 2.2, ease: 'power2.out' }
+      )
       // Eyebrow drifts in
       .fromTo('.hero-eyebrow',
         { opacity: 0, x: -20 },
-        { opacity: 1, x: 0, duration: 1.1, ease: 'power2.out' }
+        { opacity: 1, x: 0, duration: 1.1, ease: 'power2.out' },
+        '-=2.0'
       )
       // Title lines rise from below with overlap
       .to('.hero-title .line-inner', {

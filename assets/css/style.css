@@ -126,17 +126,19 @@ iframe:focus-visible,
   letter-spacing: -0.02em;
   color: var(--ink);
   text-decoration: none;
-  display: flex;
-  align-items: baseline;
-  gap: 0.3rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  line-height: 1;
 }
-.nav-logo em { color: var(--gold-deep); }
+.nav-logo em { color: var(--gold-deep); font-style: italic; }
 .nav-logo .star {
-  color: var(--gold-deep);
-  font-size: 0.6em;
-  font-style: normal;
-  transform: translateY(-0.3em);
+  width: 1.1em;
+  height: 1.1em;
+  object-fit: contain;
   display: inline-block;
+  flex-shrink: 0;
+  transform: translateY(-0.05em);
 }
 
 .nav-links {
@@ -312,6 +314,64 @@ section { padding: 8rem 0; position: relative; }
   padding-top: 4rem;
   padding-bottom: 6rem;
   width: 100%;
+  /* On desktop/tablet-landscape the text takes the left ~58%, leaving room
+     for the universe illustration on the right */
+}
+
+@media (min-width: 1024px) {
+  .hero-content {
+    max-width: calc(var(--maxw) * 0.58);
+    margin-left: max(3rem, calc((100% - var(--maxw)) / 2 + 0px));
+    margin-right: 0;
+  }
+}
+
+/* The celestial universe illustration anchoring the right side of the hero */
+.hero-universe {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  width: min(38vw, 540px);
+  aspect-ratio: 3 / 4; /* matches Universe 01 ~ 1203×1600 */
+  transform: translateY(-50%);
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  will-change: opacity, transform;
+}
+.hero-universe img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  /* Universe 01's gold paint shows beautifully on cream — keep it nearly full strength */
+  opacity: 0.55;
+  /* Very slow breathing rotation — adds life without distraction */
+  animation: hero-universe-drift 320s linear infinite;
+}
+
+@keyframes hero-universe-drift {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-universe img { animation: none; }
+}
+
+/* Below tablet-landscape the universe sits behind the text at reduced opacity,
+   shifted to the right edge — text reflows back to full width */
+@media (max-width: 1023px) {
+  .hero-universe {
+    right: -15%;
+    width: min(70vw, 500px);
+    z-index: 1;
+  }
+  .hero-universe img { opacity: 0.18; }
+}
+
+@media (max-width: 640px) {
+  .hero-universe { display: none; }
 }
 
 .star-field {
@@ -1845,11 +1905,12 @@ footer::before {
 }
 .footer-brand-name em { font-style: italic; color: var(--gold-on-night); }
 .footer-brand-name .star {
-  color: var(--gold-on-night);
-  font-size: 0.5em;
-  transform: translateY(-0.3em);
+  width: 0.85em;
+  height: 0.85em;
+  object-fit: contain;
   display: inline-block;
-  margin: 0 0.2rem;
+  vertical-align: -0.05em;
+  margin: 0 0.3rem;
 }
 .footer-brand-tag {
   font-family: 'Fraunces', serif;
