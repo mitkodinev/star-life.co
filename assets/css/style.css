@@ -318,56 +318,50 @@ section { padding: 8rem 0; position: relative; }
      for the universe illustration on the right */
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1100px) {
   .hero-content {
-    max-width: calc(var(--maxw) * 0.58);
-    margin-left: max(3rem, calc((100% - var(--maxw)) / 2 + 0px));
+    /* Text column generous enough to keep the headline's 4-line rhythm */
+    max-width: min(50%, 640px);
+    margin-left: max(3rem, calc((100% - var(--maxw)) / 2));
     margin-right: 0;
   }
 }
 
-/* The celestial universe illustration anchoring the right side of the hero */
+/* The celestial universe illustration anchoring the right side of the hero.
+   Sized to feel like a peer to the text block — not a background ornament.
+   Size: +25% over original (540 → 675px). Opacity: +20% (0.55 → 0.66). */
 .hero-universe {
   position: absolute;
   top: 50%;
-  right: 5%;
-  width: min(38vw, 540px);
-  aspect-ratio: 3 / 4; /* matches Universe 01 ~ 1203×1600 */
+  /* Anchored to the right gutter — mirrors the left margin on the text side */
+  right: max(3rem, calc((100% - var(--maxw)) / 2));
+  /* Fits alongside the 50% text column with a small breathing gap */
+  width: min(43%, 675px);
+  aspect-ratio: 3 / 4;
   transform: translateY(-50%);
   z-index: 2;
   pointer-events: none;
   opacity: 0;
-  will-change: opacity, transform;
+  will-change: opacity;
 }
 .hero-universe img {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: contain;
-  /* Universe 01's gold paint shows beautifully on cream — keep it nearly full strength */
-  opacity: 0.55;
-  /* Very slow breathing rotation — adds life without distraction */
-  animation: hero-universe-drift 320s linear infinite;
+  /* Slightly stronger presence — reads as part of the composition, not the background */
+  opacity: 0.66;
 }
 
-@keyframes hero-universe-drift {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-universe img { animation: none; }
-}
-
-/* Below tablet-landscape the universe sits behind the text at reduced opacity,
+/* Below desktop the universe sits behind the text at reduced opacity,
    shifted to the right edge — text reflows back to full width */
-@media (max-width: 1023px) {
+@media (max-width: 1099px) {
   .hero-universe {
     right: -15%;
     width: min(70vw, 500px);
     z-index: 1;
   }
-  .hero-universe img { opacity: 0.18; }
+  .hero-universe img { opacity: 0.22; }
 }
 
 @media (max-width: 640px) {
@@ -572,15 +566,20 @@ section { padding: 8rem 0; position: relative; }
   opacity: 0.5;
 }
 
-/* Wreath — partially cropped off the right edge, anchored behind the steps */
+/* Wreath — anchored at the top center of the section, cropped to roughly half-size
+   so the bottom hemisphere arcs down into the section like a rising/setting sun.
+   Centering uses left + margin (not transform) so GSAP can manage opacity without
+   conflict. The image is pulled up by half its height via margin-top. */
 .approach-wreath {
   position: absolute;
-  right: -20%;
-  top: 50%;
-  width: min(75vw, 880px);
+  top: 0;
+  /* Center horizontally: left:50% + negative margin-left of half the width */
+  left: 50%;
+  width: min(70vw, 760px);
+  margin-left: calc(min(70vw, 760px) / -2);
+  /* Pull up by half the height — only the bottom hemisphere stays visible */
+  margin-top: calc(min(70vw, 760px) / -2);
   aspect-ratio: 1 / 1;
-  transform: translateY(-50%);
-  margin-top: 4rem; /* shift slightly below center to sit behind the steps grid */
   pointer-events: none;
   z-index: 0;
   opacity: 0;
@@ -591,8 +590,8 @@ section { padding: 8rem 0; position: relative; }
   height: 100%;
   display: block;
   opacity: 0.16;
-  /* Counter-rotation (opposite direction from prince mandala) — subtle distinction */
-  animation: approach-wreath-rotate 240s linear infinite;
+  /* 2× slower rotation (was 240s, now 480s) — even more imperceptible */
+  animation: approach-wreath-rotate 480s linear infinite;
 }
 
 @keyframes approach-wreath-rotate {
