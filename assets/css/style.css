@@ -511,6 +511,39 @@ section { padding: 8rem 0; position: relative; }
   border-radius: 50%;
   opacity: 0.5;
 }
+
+/* Wreath — partially cropped off the right edge, anchored behind the steps */
+.approach-wreath {
+  position: absolute;
+  right: -20%;
+  top: 50%;
+  width: min(75vw, 880px);
+  aspect-ratio: 1 / 1;
+  transform: translateY(-50%);
+  margin-top: 4rem; /* shift slightly below center to sit behind the steps grid */
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  will-change: opacity;
+}
+.approach-wreath img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0.16;
+  /* Counter-rotation (opposite direction from prince mandala) — subtle distinction */
+  animation: approach-wreath-rotate 240s linear infinite;
+}
+
+@keyframes approach-wreath-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .approach-wreath img { animation: none; }
+}
+
 .approach .container { position: relative; z-index: 1; }
 .approach .section-head { border-bottom-color: var(--border-night); }
 
@@ -880,6 +913,40 @@ section { padding: 8rem 0; position: relative; }
   box-shadow: 0 0 6px 1px rgba(212, 181, 138, 0.5);
 }
 
+/* Mandala — sits behind the quote, very low opacity, slowly rotating.
+   The wrapper's transform is fully managed by GSAP (entry scale, scroll parallax).
+   The inner <img> handles the continuous rotation in CSS so the two animations don't conflict. */
+.prince-mandala {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(75vw, 760px);
+  aspect-ratio: 1 / 1;
+  margin-top: calc(min(75vw, 760px) / -2);
+  margin-left: calc(min(75vw, 760px) / -2);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.prince-mandala img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0.18;
+  /* Slow, almost imperceptible rotation */
+  animation: prince-mandala-rotate 180s linear infinite;
+}
+
+@keyframes prince-mandala-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prince-mandala img { animation: none; }
+}
+
 .prince .container {
   position: relative;
   z-index: 1;
@@ -1044,19 +1111,51 @@ section { padding: 8rem 0; position: relative; }
 .ethics-signatures span { color: var(--gold-deep); margin: 0 0.4rem; }
 
 /* ─── FAQ ─── */
-.faq { background: var(--cream); }
+.faq {
+  background: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle decorative gradient — matches the hero/prince treatment */
+.faq::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 90% 20%, rgba(201, 167, 122, 0.08), transparent 50%),
+    radial-gradient(ellipse at 10% 90%, rgba(168, 184, 200, 0.06), transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+.faq .container { position: relative; z-index: 1; }
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: minmax(320px, 380px) 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+/* ─── LEFT ASIDE ─── */
+.faq-aside {
+  position: sticky;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
 
 .faq-lead {
   font-family: 'Fraunces', serif;
   font-style: italic;
   font-weight: 300;
-  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  font-size: clamp(1.5rem, 2.4vw, 1.95rem);
   line-height: 1.3;
   letter-spacing: -0.01em;
-  max-width: 900px;
-  margin-bottom: 4rem;
   color: var(--ink);
   font-variation-settings: "opsz" 144;
+  margin: 0;
 }
 .faq-lead em { color: var(--gold-deep); }
 .faq-lead .quote-mark {
@@ -1069,15 +1168,94 @@ section { padding: 8rem 0; position: relative; }
   margin-right: 0.1em;
 }
 
+/* The little call-out card on the left */
+.faq-aside-card {
+  padding: 2.5rem 2.2rem;
+  background: var(--night);
+  color: var(--cream);
+  border: 1px solid var(--night);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.faq-aside-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 80% 20%, rgba(201, 167, 122, 0.18), transparent 60%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.faq-aside-mark {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 1.8rem;
+  color: var(--gold-on-night);
+  line-height: 1;
+  margin-bottom: 1.2rem;
+  opacity: 0.9;
+}
+
+.faq-aside-text {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.15rem;
+  line-height: 1.5;
+  color: var(--cream);
+  margin: 0 0 2rem;
+}
+.faq-aside-text em {
+  color: var(--gold-on-night);
+}
+
+.faq-aside-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'Fraunces', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--gold-on-night);
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border-night);
+  width: 100%;
+  transition: color 0.3s, gap 0.3s;
+}
+.faq-aside-cta:hover,
+.faq-aside-cta:focus-visible {
+  color: var(--cream);
+  gap: 1rem;
+}
+
+/* ─── RIGHT: ACCORDION ─── */
 .faq-list {
-  max-width: 920px;
-  border-top: 1px solid var(--border-strong);
+  background: var(--cream-soft);
+  border: 1px solid var(--border-soft);
+  padding: 0.5rem 2.4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle gold top edge — picks up the "service card" treatment */
+.faq-list::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--gold-deep);
+  opacity: 0.4;
 }
 
 .faq-item {
-  border-bottom: 1px solid var(--border-strong);
+  border-bottom: 1px solid var(--border-soft);
   position: relative;
+  transition: background 0.3s;
 }
+.faq-item:last-child { border-bottom: none; }
 
 /* Hide native marker */
 .faq-item summary::-webkit-details-marker { display: none; }
@@ -1085,10 +1263,10 @@ section { padding: 8rem 0; position: relative; }
 
 .faq-question {
   display: grid;
-  grid-template-columns: 60px 1fr 28px;
-  gap: 1.5rem;
+  grid-template-columns: 48px 1fr 24px;
+  gap: 1.4rem;
   align-items: baseline;
-  padding: 2rem 0;
+  padding: 1.7rem 0;
   cursor: pointer;
   user-select: none;
   transition: color 0.3s;
@@ -1096,7 +1274,7 @@ section { padding: 8rem 0; position: relative; }
 
 .faq-question:hover,
 .faq-question:focus-visible { color: var(--gold-deep); }
-.faq-question:focus-visible { outline-offset: 6px; }
+.faq-question:focus-visible { outline-offset: 4px; }
 
 .faq-q-num {
   font-family: 'Fraunces', serif;
@@ -1110,23 +1288,23 @@ section { padding: 8rem 0; position: relative; }
 
 .faq-q-text {
   font-family: 'Fraunces', serif;
-  font-weight: 300;
-  font-size: clamp(1.15rem, 1.7vw, 1.4rem);
-  line-height: 1.35;
-  letter-spacing: -0.01em;
+  font-weight: 400;
+  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+  line-height: 1.4;
+  letter-spacing: -0.005em;
   color: var(--ink);
-  padding-right: 1rem;
+  padding-right: 0.5rem;
   transition: color 0.3s;
 }
 
-.faq-item[open] .faq-q-text { color: var(--gold-deep); }
+.faq-item[open] .faq-q-text { color: var(--gold-deep); font-style: italic; }
 .faq-question:hover .faq-q-text { color: var(--gold-deep); }
 
-/* Plus / minus icon — pure CSS */
+/* Plus / minus icon */
 .faq-q-icon {
   position: relative;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   align-self: center;
   justify-self: end;
   flex-shrink: 0;
@@ -1139,7 +1317,6 @@ section { padding: 8rem 0; position: relative; }
   transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
               background-color 0.3s;
 }
-/* Horizontal bar */
 .faq-q-icon::before {
   top: 50%;
   left: 0;
@@ -1147,7 +1324,6 @@ section { padding: 8rem 0; position: relative; }
   height: 1.5px;
   transform: translateY(-50%);
 }
-/* Vertical bar (becomes a minus when rotated) */
 .faq-q-icon::after {
   left: 50%;
   top: 0;
@@ -1164,8 +1340,7 @@ section { padding: 8rem 0; position: relative; }
 .faq-question:hover .faq-q-icon::after { background: var(--gold-deep); }
 
 .faq-answer {
-  padding: 0 28px 2.4rem calc(60px + 1.5rem);
-  max-width: 760px;
+  padding: 0 0 1.8rem calc(48px + 1.4rem);
   animation: faq-reveal 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
@@ -1176,7 +1351,7 @@ section { padding: 8rem 0; position: relative; }
 
 .faq-answer p {
   font-family: 'Lora', serif;
-  font-size: 1.05rem;
+  font-size: 1rem;
   line-height: 1.75;
   color: var(--ink-soft);
 }
@@ -1195,26 +1370,6 @@ section { padding: 8rem 0; position: relative; }
 }
 .faq-answer a:hover,
 .faq-answer a:focus-visible { color: var(--night); }
-
-.faq-closing {
-  margin-top: 4rem;
-  padding-top: 2.5rem;
-  border-top: 1px solid var(--border-soft);
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-weight: 300;
-  font-size: 1.15rem;
-  color: var(--ink-soft);
-  max-width: 720px;
-}
-.faq-closing a {
-  color: var(--gold-deep);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-}
-.faq-closing a:hover,
-.faq-closing a:focus-visible { color: var(--night); }
 
 /* ─── SUBPAGE LAYOUT (privacy, vocabulary) ─── */
 .subpage {
@@ -1779,6 +1934,18 @@ footer::before {
   .approach-step:nth-child(2n) { border-right: none; }
   .testimonials-grid { grid-template-columns: 1fr 1fr; }
   .testimonials-grid .testimonial:last-child { grid-column: 1 / -1; max-width: 540px; margin: 0 auto; }
+  .faq-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .faq-aside {
+    position: static;
+    top: auto;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
 }
 
 @media (max-width: 900px) {
@@ -1858,14 +2025,28 @@ footer::before {
   .footer-top { grid-template-columns: 1fr; gap: 2rem; }
 
   /* FAQ mobile */
+  .faq-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .faq-aside {
+    position: static;
+    top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .faq-aside-card { padding: 2rem 1.6rem; }
+  .faq-list { padding: 0.4rem 1.4rem; }
   .faq-question {
-    grid-template-columns: 40px 1fr 20px;
+    grid-template-columns: 36px 1fr 18px;
     gap: 1rem;
-    padding: 1.5rem 0;
+    padding: 1.4rem 0;
   }
   .faq-q-num { font-size: 0.85rem; }
+  .faq-q-text { font-size: 1rem; }
   .faq-answer {
-    padding: 0 0 1.8rem calc(40px + 1rem);
+    padding: 0 0 1.6rem calc(36px + 1rem);
   }
 
   /* Subpage mobile */
@@ -1875,6 +2056,12 @@ footer::before {
     gap: 0.4rem;
   }
   .vocab-nav { top: 60px; padding: 0.8rem var(--pad-x-sm); }
+
+  /* Decorative kit assets — hide on mobile to keep the page calm.
+     The dark navy sections still have their gradient + JS stars for atmosphere. */
+  .approach-wreath { display: none; }
+  .prince-mandala { width: min(90vw, 480px); margin-top: calc(min(90vw, 480px) / -2); margin-left: calc(min(90vw, 480px) / -2); }
+  .prince-mandala img { opacity: 0.14; }
   .footer-bottom {
     flex-direction: column;
     gap: 1rem;

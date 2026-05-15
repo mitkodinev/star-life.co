@@ -79,6 +79,11 @@
       });
       const emph = document.querySelector('.prince-emph');
       if (emph) emph.classList.add('in-view');
+      // Make the mandala visible too if GSAP isn't available
+      document.querySelectorAll('.prince-mandala, .approach-wreath').forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
       return;
     }
 
@@ -91,6 +96,8 @@
       gsap.set('.hero-title .line-inner', { y: 0 });
       gsap.set('.prince-word', { opacity: 1, y: 0 });
       gsap.set('.prince-attr', { opacity: 1, y: 0 });
+      gsap.set('.prince-mandala', { opacity: 1, scale: 1 });
+      gsap.set('.approach-wreath', { opacity: 1 });
       const emph = document.querySelector('.prince-emph');
       if (emph) emph.classList.add('in-view');
       // Counters: just write the final value
@@ -307,8 +314,9 @@
     // ─── THE PRINCE (Little Prince quote) ───
     const princeStars = document.getElementById('princeStars');
     if (princeStars) {
-      // Build a drifting starfield with two layers (depth)
-      const totalStars = 55;
+      // Build a drifting starfield with two layers (depth).
+      // Reduced from 55 → 30 now that the mandala carries the visual weight.
+      const totalStars = 30;
       const stars = [];
       for (let i = 0; i < totalStars; i++) {
         const s = document.createElement('div');
@@ -354,6 +362,41 @@
           start: 'top bottom',
           end: 'bottom top',
           scrub: 1.5
+        }
+      });
+    }
+
+    // Mandala reveal: fade in + scale up as the section enters view
+    const princeMandala = document.querySelector('.prince-mandala');
+    if (princeMandala) {
+      // Set initial state explicitly so it's correct even if we jump-scroll
+      gsap.set(princeMandala, { opacity: 0, scale: 0.92 });
+      gsap.to(princeMandala, {
+        opacity: 1,
+        scale: 1,
+        ease: 'power2.out',
+        duration: 1.8,
+        scrollTrigger: {
+          trigger: '.prince',
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        }
+      });
+    }
+
+    // Approach wreath reveal — opacity only (no transform, to avoid conflict with the
+    // CSS translateY centering on the wrapper)
+    const approachWreath = document.querySelector('.approach-wreath');
+    if (approachWreath) {
+      gsap.set(approachWreath, { opacity: 0 });
+      gsap.to(approachWreath, {
+        opacity: 1,
+        ease: 'power2.out',
+        duration: 2.2,
+        scrollTrigger: {
+          trigger: '.approach',
+          start: 'top 80%',
+          toggleActions: 'play none none none'
         }
       });
     }
